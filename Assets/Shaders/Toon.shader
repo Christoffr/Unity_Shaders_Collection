@@ -3,9 +3,11 @@ Shader "Unlit/Toon"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _ShadowTex ("Shadow", 2D) = "white" {}
         _Color ("Base Color", Color) = (1, 1, 1, 1)
-        _AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
+        [Toggle] _IsGloss("Is Glossy", Float) = 0
         _Gloss ("Gloss", Float) = 1
+        _ShadowCutOff ("Shadow Cut Off", Range(0, 1)) = .6
     }
     SubShader
     {
@@ -23,9 +25,11 @@ Shader "Unlit/Toon"
             #include "AutoLight.cginc"
 
             sampler2D _MainTex;
+            sampler2D _ShadowTex;
             float4 _Color;
-            float4 _AmbientColor;
+            float _IsGloss;
             float _Gloss;
+            float _ShadowCutOff;
 
             struct appdata
             {
@@ -56,6 +60,7 @@ Shader "Unlit/Toon"
             {
                 // sample the texture
                 fixed4 tex = tex2D(_MainTex, i.uv); 
+                fixed4 shadow = tex2D(_ShadowTex, i.uv); 
                 float3 normal = normalize(i.normal);
 
                 // Lights
@@ -64,21 +69,25 @@ Shader "Unlit/Toon"
 
                 // Defusse light
                 float lightFallOff = saturate(dot(lightDir, normal));
-                lightFallOff = step(0.01, lightFallOff); // Cel shading part
-                float4 deffuseLight = lightFallOff * lightColor;
+                //lightFallOff = step(0.01, lightFallOff); // Cel shading part
+                //float4 deffuseLight = lightFallOff * lightColor;
+                if(lightFallOff < _ShadowCutOff)
+                {
+                    tex *= shadow;
+                }
 
                 // Specular light (Phong)
                 float3 viewDir = normalize(i.worldPos - _WorldSpaceCameraPos); // Vector from the fragment to the camera
                 float3 viewReflect = reflect(viewDir, normal);
                 float specularFallOff = saturate(dot(viewReflect, lightDir));
                 specularFallOff = pow(specularFallOff, _Gloss); // Remaped Gloss
-                specularFallOff = step(0.1, specularFallOff); // Cel shading part
+                specularFallOff = step(0.1, specularFallOff) * _IsGloss; // Cel shading part
                 float4 specularLight = specularFallOff * lightColor;
 
                 // Outline
 
                 //return float4(specularFallOff.xxx, 0);
-                return (deffuseLight + _AmbientColor) * _Color * tex + specularLight;
+                return tex * _Color + specularLight;
             }
             ENDCG
         }
