@@ -1,95 +1,68 @@
 Shader "Unlit/Toon"
 {
-    Properties
+    Properties 
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        _ShadowTex ("Shadow", 2D) = "white" {}
-        _Color ("Base Color", Color) = (1, 1, 1, 1)
-        [Toggle] _IsGloss("Is Glossy", Float) = 0
-        _Gloss ("Gloss", Float) = 1
-        _ShadowCutOff ("Shadow Cut Off", Range(0, 1)) = .6
+        [Header(Surface options)]
+        [MainTexture] _MainTex ("Main Texture", 2D) = "white" {} 
+        [MainColor] _MainColor("Main Color", Color) = (1, 1, 1, 1)
     }
+
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+        Tags{"RenderPipeline" = "UniversalPipeline"}
 
         Pass
         {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            Name "ForwardLit" // For debugging
+            Tags{"LightMode" = "UniversalForward"} // Tells Unity this is the main lighting pass of this shader
 
-            #include "UnityCG.cginc"
-            #include "Lighting.cginc"
-            #include "AutoLight.cginc"
+            // Begin HLSL code
+            HLSLPROGRAM 
+            #pragma vertex Vertex
+            #pragma fragment Fragment
 
-            sampler2D _MainTex;
-            sampler2D _ShadowTex;
-            float4 _Color;
-            float _IsGloss;
-            float _Gloss;
-            float _ShadowCutOff;
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            float4 _MainTex_ST;
+            float4 _MainColor;
 
-            struct appdata
+            struct Attributes
             {
-                float4 vertex : POSITION;
+                float3 positionOS : POSITION;
                 float2 uv : TEXCOORD0;
-                float3 normal : NORMAL;
             };
 
-            struct v2f
+            struct Interpolators
             {
-                float4 vertex : SV_POSITION;
+                float4 positionCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float3 normal : TEXCOORD1;
-                float3 worldPos: TEXCOORD2;
             };
 
-            v2f vert (appdata v)
+            Interpolators Vertex(Attributes input) 
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                o.normal = v.normal;
-                o.worldPos =  mul(unity_ObjectToWorld, v.vertex);
-                return o;
+                Interpolators output;
+
+                VertexPositionInputs posnInputs = GetVertexPositionInputs(input.positionOS);
+                
+                output.positionCS = posnInputs.positionCS;
+                output.uv = TRANSFORM_TEX(input.uv, _MainTex);
+
+                return output;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 Fragment(Interpolators input) : SV_TARGET 
             {
-                // sample the texture
-                fixed4 tex = tex2D(_MainTex, i.uv); 
-                fixed4 shadow = tex2D(_ShadowTex, i.uv); 
-                float3 normal = normalize(i.normal);
-
-                // Lights
-                float3 lightDir = _WorldSpaceLightPos0; // For directional light this s a vector
-                float4 lightColor = _LightColor0;
-
-                // Defusse light
-                float lightFallOff = saturate(dot(lightDir, normal));
-                //lightFallOff = step(0.01, lightFallOff); // Cel shading part
-                //float4 deffuseLight = lightFallOff * lightColor;
-                if(lightFallOff < _ShadowCutOff)
-                {
-                    tex *= shadow;
-                }
-
-                // Specular light (Phong)
-                float3 viewDir = normalize(i.worldPos - _WorldSpaceCameraPos); // Vector from the fragment to the camera
-                float3 viewReflect = reflect(viewDir, normal);
-                float specularFallOff = saturate(dot(viewReflect, lightDir));
-                specularFallOff = pow(specularFallOff, _Gloss); // Remaped Gloss
-                specularFallOff = step(0.1, specularFallOff) * _IsGloss; // Cel shading part
-                float4 specularLight = specularFallOff * lightColor;
-
-                // Outline
-
-                //return float4(specularFallOff.xxx, 0);
-                return tex * _Color + specularLight;
+                // Sample the texture
+                float2 uv = input.uv;
+                float4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+                
+                return tex * _MainColor;
             }
-            ENDCG
+
+            ENDHLSL
         }
+
     }
 }
