@@ -138,7 +138,7 @@ Material:
     m_Colors:
     - _AmbientColor: {r: 0.4433962, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 0.07075471, b: 0.07075471, a: 1}
+    - _Color: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 1, g: 0.32704395, b: 0.32704395, a: 1}
     - _Main_Color: {r: 1, g: 0.28930813, b: 0.28930813, a: 0}

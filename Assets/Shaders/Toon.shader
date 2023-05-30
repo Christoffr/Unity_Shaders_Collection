@@ -1,68 +1,115 @@
 Shader "Unlit/Toon"
 {
-    Properties 
+    Properties
     {
-        [Header(Surface options)]
-        [MainTexture] _MainTex ("Main Texture", 2D) = "white" {} 
-        [MainColor] _MainColor("Main Color", Color) = (1, 1, 1, 1)
+        [Header(Surface Options)]
+        _MainTex ("Main Texture", 2D) = "white" {}
+        _ShadowTex ("Shadow Texture", 2D) = "white" {}
+        _MainColor ("Main Color", Color) = (1, 1, 1, 1)
     }
-
     SubShader
     {
-        Tags{"RenderPipeline" = "UniversalPipeline"}
+        Tags { "RenderType"="Opaque" }
 
         Pass
         {
-            Name "ForwardLit" // For debugging
-            Tags{"LightMode" = "UniversalForward"} // Tells Unity this is the main lighting pass of this shader
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
-            // Begin HLSL code
-            HLSLPROGRAM 
-            #pragma vertex Vertex
-            #pragma fragment Fragment
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
 
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            
-            TEXTURE2D(_MainTex);
-            SAMPLER(sampler_MainTex);
+
+            sampler2D _MainTex;
             float4 _MainTex_ST;
+
+            sampler2D _ShadowTex;
+            float4 _ShadowTex_ST;
+            
             float4 _MainColor;
 
-            struct Attributes
+            struct appdata
             {
-                float3 positionOS : POSITION;
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float2 uv : TEXCOORD0;
+
+            };
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                float3 normal : NORMAL;
                 float2 uv : TEXCOORD0;
             };
 
-            struct Interpolators
+            v2f vert (appdata v)
             {
-                float4 positionCS : SV_POSITION;
-                float2 uv : TEXCOORD0;
-            };
-
-            Interpolators Vertex(Attributes input) 
-            {
-                Interpolators output;
-
-                VertexPositionInputs posnInputs = GetVertexPositionInputs(input.positionOS);
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.normal = v.normal;
                 
-                output.positionCS = posnInputs.positionCS;
-                output.uv = TRANSFORM_TEX(input.uv, _MainTex);
-
-                return output;
+                return o;
             }
 
-            float4 Fragment(Interpolators input) : SV_TARGET 
+            fixed4 frag (v2f i) : SV_Target
             {
-                // Sample the texture
-                float2 uv = input.uv;
-                float4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+                fixed4 tex = tex2D(_MainTex, i.uv);
+                fixed4 shadow = tex2D(_ShadowTex, i.uv);
+
+                float3 normal = i.normal;
+
+                float3 lightDir = normalize(float3(1,1,1));
+
+                // Lambert
+                float lightFalloff = dot(lightDir, normal);
                 
+                if(lightFalloff >= 0.01)
+                {
+                    tex = tex;
+                }
+                else
+                {
+                    tex *= shadow;
+                }
+
+
                 return tex * _MainColor;
             }
-
-            ENDHLSL
+            ENDCG
         }
 
+        // shadow caster rendering pass, implemented manually
+        // using macros from UnityCG.cginc
+        Pass
+        {
+            Tags {"LightMode"="ShadowCaster"}
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct v2f { 
+                V2F_SHADOW_CASTER;
+            };
+
+            v2f vert(appdata_base v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
+            }
+            ENDCG
+        }
     }
 }
