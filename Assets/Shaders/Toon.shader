@@ -6,6 +6,7 @@ Shader "Unlit/Toon"
         _MainTex ("Main Texture", 2D) = "white" {}
         _ShadowTex ("Shadow Texture", 2D) = "white" {}
         _MainColor ("Main Color", Color) = (1, 1, 1, 1)
+        _Gloss ("Gloss", Float) = 0.6
     }
     SubShader
     {
@@ -29,6 +30,7 @@ Shader "Unlit/Toon"
             float4 _ShadowTex_ST;
             
             float4 _MainColor;
+            float _Gloss;
 
             struct appdata
             {
@@ -43,6 +45,7 @@ Shader "Unlit/Toon"
                 float4 vertex : SV_POSITION;
                 float3 normal : NORMAL;
                 float2 uv : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
             };
 
             v2f vert (appdata v)
@@ -51,7 +54,8 @@ Shader "Unlit/Toon"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.normal = v.normal;
-                
+                o.worldPos = mul( unity_ObjectToWorld, v.vertex);
+
                 return o;
             }
 
@@ -60,14 +64,22 @@ Shader "Unlit/Toon"
                 fixed4 tex = tex2D(_MainTex, i.uv);
                 fixed4 shadow = tex2D(_ShadowTex, i.uv);
 
-                float3 normal = i.normal;
+                float3 normal = normalize(i.normal);
 
-                float3 lightDir = normalize(float3(1,1,1));
-
-                // Lambert
-                float lightFalloff = dot(lightDir, normal);
+                float3 lightDir = _WorldSpaceLightPos0.xyz;;
+                float3 lightColor = _LightColor0.xyz;
+                float lightFalloff = saturate(dot(lightDir, normal));
                 
-                if(lightFalloff >= 0.01)
+                // Lambertion light
+                float3 deffusse = lightColor * lightFalloff;
+
+                // Specular light
+                float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos); 
+                float3 viewReflect = reflect(-viewDir, normal);
+                float specularFallOff = saturate(dot(viewReflect, lightDir));
+                specularFallOff = pow(specularFallOff, _Gloss);
+
+                if(lightFalloff >= 0.06)
                 {
                     tex = tex;
                 }
@@ -76,8 +88,16 @@ Shader "Unlit/Toon"
                     tex *= shadow;
                 }
 
+                if(specularFallOff >= 0.6)
+                {
+                    specularFallOff = 1;
+                }
+                else
+                {
+                    specularFallOff = 0;
+                }
 
-                return tex * _MainColor;
+                return specularFallOff + tex * _MainColor;
             }
             ENDCG
         }
