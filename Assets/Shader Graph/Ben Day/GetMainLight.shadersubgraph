@@ -7,17 +7,7 @@
             "m_Id": "99d1a007a17e42d982e326a38ec136a5"
         }
     ],
-    "m_Keywords": [
-        {
-            "m_Id": "d36f433b370c4558b7fb0dd2de568428"
-        },
-        {
-            "m_Id": "91c83850a9894d52a470b52c66733344"
-        },
-        {
-            "m_Id": "e4f79be486404183b2ec763428769e81"
-        }
-    ],
+    "m_Keywords": [],
     "m_Dropdowns": [],
     "m_CategoryData": [
         {
@@ -162,15 +152,6 @@
     "m_ChildObjectList": [
         {
             "m_Id": "99d1a007a17e42d982e326a38ec136a5"
-        },
-        {
-            "m_Id": "d36f433b370c4558b7fb0dd2de568428"
-        },
-        {
-            "m_Id": "91c83850a9894d52a470b52c66733344"
-        },
-        {
-            "m_Id": "e4f79be486404183b2ec763428769e81"
         }
     ]
 }
@@ -272,30 +253,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
-    "m_ObjectId": "91c83850a9894d52a470b52c66733344",
-    "m_Guid": {
-        "m_GuidSerialized": "f7d7b4ba-273d-423f-85bb-248a99bedca4"
-    },
-    "m_Name": "Main Light Shadows cascade",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Main Light Shadows cascade",
-    "m_DefaultReferenceName": "_MAIN_LIGHT_SHADOWS_CASCADE",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_KeywordType": 0,
-    "m_KeywordDefinition": 1,
-    "m_KeywordScope": 1,
-    "m_KeywordStages": 63,
-    "m_Entries": [],
-    "m_Value": 1,
-    "m_IsEditable": true
 }
 
 {
@@ -465,30 +422,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
-    "m_ObjectId": "d36f433b370c4558b7fb0dd2de568428",
-    "m_Guid": {
-        "m_GuidSerialized": "9810ba79-daa6-416f-91a4-c30234e46a07"
-    },
-    "m_Name": "Main Light Shadows",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Main Light Shadows",
-    "m_DefaultReferenceName": "_MAIN_LIGHT_SHADOWS",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_KeywordType": 0,
-    "m_KeywordDefinition": 1,
-    "m_KeywordScope": 1,
-    "m_KeywordStages": 63,
-    "m_Entries": [],
-    "m_Value": 1,
-    "m_IsEditable": true
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "da860dcfaeae4b01af5a7b0dfe1ba2fb",
@@ -544,30 +477,6 @@
         "z": 0.0
     },
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
-    "m_ObjectId": "e4f79be486404183b2ec763428769e81",
-    "m_Guid": {
-        "m_GuidSerialized": "b2693ad1-2a45-4967-ad98-8f163f53e39a"
-    },
-    "m_Name": "Soft Shadows",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Soft Shadows",
-    "m_DefaultReferenceName": "_SOFT_SHADOWS",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_KeywordType": 0,
-    "m_KeywordDefinition": 1,
-    "m_KeywordScope": 1,
-    "m_KeywordStages": 63,
-    "m_Entries": [],
-    "m_Value": 1,
-    "m_IsEditable": true
 }
 
 {
