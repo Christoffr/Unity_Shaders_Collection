@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Red_Mat
-  m_Shader: {fileID: 4800000, guid: 0033117c869900144ba59790fda0b5dc, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 21b7a9430a2ea9f4bb4c0732365adce0, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -83,8 +83,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ShadowTex:
         m_Texture: {fileID: 2800000, guid: e0bd51cc120f7924ca21764a85799a05, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 10, y: 10}
     - _Shadow_Texture:
         m_Texture: {fileID: 2800000, guid: e0bd51cc120f7924ca21764a85799a05, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -125,6 +125,9 @@ Material:
     - _IsGloss: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Outline: 5
+    - _OutlineExtrusion: 1
+    - _OutlineSize: -0.06
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -137,6 +140,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _Width: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -146,6 +150,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 1, g: 0.32704395, b: 0.32704395, a: 1}
     - _Main_Color: {r: 1, g: 0.28930813, b: 0.28930813, a: 0}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}

@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Unlit/Toon"
 {
     Properties
@@ -6,6 +8,7 @@ Shader "Unlit/Toon"
         _MainTex ("Main Texture", 2D) = "white" {}
         _ShadowTex ("Shadow Texture", 2D) = "white" {}
         _MainColor ("Main Color", Color) = (1, 1, 1, 1)
+        [Toggle]_IsGloss("Is Glossy", Float) = 1
         _Gloss ("Gloss", Float) = 0.6
     }
     SubShader
@@ -30,6 +33,7 @@ Shader "Unlit/Toon"
             float4 _ShadowTex_ST;
             
             float4 _MainColor;
+            float _IsGloss;
             float _Gloss;
 
             struct appdata
@@ -68,16 +72,16 @@ Shader "Unlit/Toon"
 
                 float3 lightDir = _WorldSpaceLightPos0.xyz;;
                 float3 lightColor = _LightColor0.xyz;
-                float lightFalloff = saturate(dot(lightDir, normal));
-                
+                float lightFalloff = dot(lightDir, normal);
+
                 // Lambertion light
                 float3 deffusse = lightColor * lightFalloff;
 
                 // Specular light
                 float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos); 
                 float3 viewReflect = reflect(-viewDir, normal);
-                float specularFallOff = saturate(dot(viewReflect, lightDir));
-                specularFallOff = pow(specularFallOff, _Gloss);
+                float specularFalloff = saturate(dot(viewReflect, lightDir));
+                float specular = pow(specularFalloff, _Gloss);
 
                 if(lightFalloff >= 0.06)
                 {
@@ -88,16 +92,17 @@ Shader "Unlit/Toon"
                     tex *= shadow;
                 }
 
-                if(specularFallOff >= 0.6)
+                if(specular >= 0.6)
                 {
-                    specularFallOff = 1;
+                    specular = 1 * _IsGloss;
                 }
                 else
                 {
-                    specularFallOff = 0;
+                    specular = 0 * _IsGloss;
                 }
 
-                return specularFallOff + tex * _MainColor;
+
+                return tex * _MainColor + specular;
             }
             ENDCG
         }
@@ -131,5 +136,7 @@ Shader "Unlit/Toon"
             }
             ENDCG
         }
+
+        
     }
 }
