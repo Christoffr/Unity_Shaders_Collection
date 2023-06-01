@@ -28,13 +28,22 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Main_Texture:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowTex:
+        m_Texture: {fileID: 2800000, guid: e0bd51cc120f7924ca21764a85799a05, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shadow_Texture:
@@ -55,10 +64,28 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 0
+    - _Gloss: 0.6
+    - _Glossiness: 0.5
+    - _IsGloss: 0
     - _Is_Gloss: 0
+    - _Metallic: 0
+    - _Outline_Thickness: 8
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0.99
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _Main_Color: {r: 0.7264151, g: 0.20330474, b: 0.20330474, a: 0}
+    - _Color: {r: 0.92510945, g: 0.08018869, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Main_Color: {r: 0.8207547, g: 0, b: 0, a: 0}
+    - _Outline_Color: {r: 0.8217424, g: 0.990566, b: 0.023362402, a: 1}
   m_BuildTextureStacks: []

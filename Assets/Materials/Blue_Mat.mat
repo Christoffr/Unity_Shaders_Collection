@@ -28,7 +28,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -119,6 +120,7 @@ Material:
     - _AmbientOcclusion: 1
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -139,6 +141,7 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineExtrusion: 94.59
     - _OutlineSize: 4.04
+    - _Outline_Thickness: 8
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -155,7 +158,9 @@ Material:
     - _Thickness: 145.54
     - _Width: 34.11
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _AmbientColor: {r: 0, g: 0.00042951555, b: 0.4433962, a: 1}
     - _BaseColor: {r: 0, g: 0.11446076, b: 0.8207547, a: 1}
