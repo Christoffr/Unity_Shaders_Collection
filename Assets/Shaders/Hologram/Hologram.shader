@@ -3,6 +3,8 @@ Shader "Custom/Hologram"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        [HDR] _MainColor("Hologram Color", Color) = (0, 0, 1, 0)
+        _Alpha ("Hologram Alpha", Range(0.0, 1.0)) = 1
     }
     SubShader
     {
@@ -22,6 +24,8 @@ Shader "Custom/Hologram"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _MainColor;
+            fixed4 _Alpha;
 
             struct appdata
             {
@@ -41,15 +45,13 @@ Shader "Custom/Hologram"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.screenUV = ComputeScreenPos(v.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 tex = tex2D(_MainTex, i.screenUV + _Time.x);
-                return tex;
+                return float4(_MainColor);
             }
             ENDCG
         }

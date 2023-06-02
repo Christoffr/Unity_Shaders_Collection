@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6533779306902580288
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: free_male_1_head_Toon_Mat
+  m_Name: Toon_Body_Mat
   m_Shader: {fileID: -6465566751694194690, guid: 21b7a9430a2ea9f4bb4c0732365adce0, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -35,15 +22,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e03c11e17f949074ea495c20697e773f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66f042053f73a50488acb6b09c6afdd2, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 0, y: 1}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: e03c11e17f949074ea495c20697e773f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66f042053f73a50488acb6b09c6afdd2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Scanlines:
         m_Texture: {fileID: 2800000, guid: f13ae4f55d7622e499dda872eadbafbe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowDarkTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTex:
@@ -77,17 +68,17 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Fresnel_Thickness: 5
-    - _Gloss: 10
+    - _Gloss: 3.44
     - _GlossMapScale: 1
     - _Glossiness: 0.3
     - _GlossyReflections: 1
-    - _IsGloss: 0
-    - _Is_Gloss: 1
+    - _IsGloss: 1
+    - _Is_Gloss: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineExtrusion: 1
-    - _OutlineSize: 0.09
+    - _OutlineSize: 0.19
     - _Outline_Thickness: 8
     - _Parallax: 0.02
     - _QueueControl: 0
@@ -96,7 +87,7 @@ Material:
     - _ReceiveShadows: 1
     - _RimAmount: 0.716
     - _RimThreshold: 0.1
-    - _ShadowCutOff: 0.01
+    - _ShadowCutOff: 0.3
     - _ShadowIntensity: 0.85
     - _Smoothness: 0.99
     - _SmoothnessTextureChannel: 0
@@ -113,15 +104,28 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Ambient: {r: 0.39999998, g: 0.39999998, b: 0.39999998, a: 1}
-    - _AmbientColor: {r: 0.36165005, g: 0.38614368, b: 0.5943396, a: 1}
+    - _AmbientColor: {r: 0.36078432, g: 0.38431376, b: 0.59607846, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorMultiply: {r: 1, g: 1, b: 1, a: 1}
     - _ColorOverride: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Fresnel_Color: {r: 4, g: 4, b: 4, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Main_Color: {r: 1, g: 0.9496855, b: 0.9496855, a: 0}
+    - _Main_Color: {r: 1, g: 1, b: 1, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
     - _Tilling: {r: 512, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &8991101050488835896
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
