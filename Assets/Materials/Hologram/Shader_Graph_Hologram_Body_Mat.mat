@@ -7,24 +7,26 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hologram_Head_Mat
+  m_Name: Shader_Graph_Hologram_Body_Mat
   m_Shader: {fileID: -6465566751694194690, guid: f592284de46230f4ab7684db9757cc61, type: 3}
   m_ValidKeywords:
   - _RECEIVE_SHADOWS_OFF
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
+    RenderType: Transparent
   disabledShaderPasses:
   - SHADOWCASTER
+  - DepthOnly
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: e03c11e17f949074ea495c20697e773f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66f042053f73a50488acb6b09c6afdd2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -48,11 +50,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e03c11e17f949074ea495c20697e773f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66f042053f73a50488acb6b09c6afdd2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: e03c11e17f949074ea495c20697e773f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66f042053f73a50488acb6b09c6afdd2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,10 +71,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Scanlines:
         m_Texture: {fileID: 2800000, guid: e925d89813c5d3e4e8d8f22f069a50af, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ShadowTex:
-        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -93,7 +91,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,15 +101,13 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _EnvironmentReflections: 1
     - _Fresnel_Thickness: 4
-    - _Gloss: 0.6
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossinessSource: 0
     - _GlossyReflections: 0
-    - _IsGloss: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -126,21 +121,20 @@ Material:
     - _SpecSource: 0
     - _SpecularHighlights: 1
     - _Speed: -0.5
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Strenght: 0.02
-    - _Surface: 0
+    - _Surface: 1
     - _WorkflowMode: 1
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fresnel_Color: {r: 0, g: 9.976471, b: 16, a: 0}
+    - _Fresnel_Color: {r: 0, g: 1.4431373, b: 11.984314, a: 0}
     - _Fresnel_Color_1: {r: 0.1089104, g: 1.730866, b: 2.565445, a: 0}
-    - _MainColor: {r: 0, g: 0.101481915, b: 1, a: 1}
-    - _Main_Color: {r: 0, g: 0.8117648, b: 1, a: 0}
+    - _Main_Color: {r: 0, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tilling: {r: 0, g: 30, b: 0, a: 0}
   m_BuildTextureStacks: []
