@@ -2,9 +2,13 @@ Shader "Custom/Hologram"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        [HDR] _MainColor("Hologram Color", Color) = (0, 0, 1, 0)
+        [Header(Surface)]
+        _MainTex ("Main Texture", 2D) = "white" {}
+        _MainColor("Main Color", Color) = (0, 0, 1, 0) 
+        [Header(Scanlines)]
+        _HologramTex ("Scanelines Texture", 2D) = "white" {}
         _ScreenTexScale ("Screen Texture Scale", Vector) = (1, 1, 1, 1)
+        _Speed ("Speed", Float) = 0.05
     }
     SubShader
     {
@@ -23,10 +27,12 @@ Shader "Custom/Hologram"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
-            //float4 _MainTex_ST;
+            float4 _MainTex_ST;
+            sampler2D _HologramTex;
+            float4 _HologramTex_ST;
             float4 _MainColor;
-            fixed4 _Alpha;
             float4 _ScreenTexScale;
+            float _Speed;
 
             struct appdata
             {
@@ -36,7 +42,7 @@ Shader "Custom/Hologram"
 
             struct v2f
             {
-                float4 vertex : SV_POSITION;                
+                float4 vertex : SV_POSITION;            
                 float2 uv : TEXCOORD0;
                 float4 screenPos : TEXCOORD1;
             };
@@ -45,7 +51,7 @@ Shader "Custom/Hologram"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _HologramTex);
                 o.screenPos = ComputeScreenPos(o.vertex);
                 return o;
             }
@@ -56,7 +62,7 @@ Shader "Custom/Hologram"
                 screenUV = screenUV * 0.5 + 0.5; // Normalize screen coordinates to [0, 1] range
                 screenUV *= _ScreenTexScale.xy; // Scale the screen coordinates if desired
 
-                return tex2D(_MainTex , screenUV - _Time.y * .02) * _MainColor;
+                return tex2D(_HologramTex , screenUV - _Time.y * _Speed) * tex2D(_MainTex, i.uv) *_MainColor;
             }
             ENDCG
         }

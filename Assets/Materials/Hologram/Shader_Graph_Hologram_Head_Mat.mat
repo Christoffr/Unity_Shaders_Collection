@@ -139,10 +139,10 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fresnel_Color: {r: 0, g: 9.976471, b: 16, a: 0}
+    - _Fresnel_Color: {r: 15.999998, g: 3.6115098, b: 0, a: 0}
     - _Fresnel_Color_1: {r: 0.1089104, g: 1.730866, b: 2.565445, a: 0}
     - _MainColor: {r: 0, g: 1, b: 1, a: 1}
-    - _Main_Color: {r: 0, g: 0.8117648, b: 1, a: 0}
+    - _Main_Color: {r: 0, g: 0.08852029, b: 1, a: 0}
     - _ScreenTexScale: {r: 1, g: 6, b: 1, a: 10}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tilling: {r: 0, g: 30, b: 0, a: 0}
