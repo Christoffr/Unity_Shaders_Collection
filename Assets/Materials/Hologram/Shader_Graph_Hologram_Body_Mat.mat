@@ -134,7 +134,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Fresnel_Color: {r: 11.984314, g: 3.8566883, b: 0, a: 0}
     - _Fresnel_Color_1: {r: 0.1089104, g: 1.730866, b: 2.565445, a: 0}
-    - _Main_Color: {r: 0, g: 0.13214254, b: 1, a: 0}
+    - _Main_Color: {r: 0, g: 0, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tilling: {r: 0, g: 30, b: 0, a: 0}
   m_BuildTextureStacks: []

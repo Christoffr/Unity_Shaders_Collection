@@ -62,7 +62,10 @@ Shader "Custom/Hologram"
                 screenUV = screenUV * 0.5 + 0.5; // Normalize screen coordinates to [0, 1] range
                 screenUV *= _ScreenTexScale.xy; // Scale the screen coordinates if desired
 
-                return tex2D(_HologramTex , screenUV - _Time.y * _Speed) * tex2D(_MainTex, i.uv) *_MainColor;
+                fixed4 tex = tex2D(_MainTex, i.uv);
+                fixed4 hologram = tex2D(_HologramTex , screenUV - _Time.y * _Speed);
+
+                return  tex * hologram * _MainColor;
             }
             ENDCG
         }
