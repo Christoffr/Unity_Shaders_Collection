@@ -4,7 +4,7 @@ Shader "Custom/Hologram"
     {
         [Header(Surface)]
         _MainTex ("Main Texture", 2D) = "white" {}
-        _MainColor("Main Color", Color) = (0, 0, 1, 0) 
+        _MainColor("Main Color", Color) = (0, 1, 1, 0) 
         [Header(Scanlines)]
         _HologramTex ("Scanelines Texture", 2D) = "white" {}
         _ScreenTexScale ("Screen Texture Scale", Vector) = (1, 1, 1, 1)
@@ -65,7 +65,7 @@ Shader "Custom/Hologram"
                 fixed4 tex = tex2D(_MainTex, i.uv);
                 fixed4 hologram = tex2D(_HologramTex , screenUV - _Time.y * _Speed);
 
-                return  tex * hologram * _MainColor;
+                return  tex.r * hologram * _MainColor;
             }
             ENDCG
         }
